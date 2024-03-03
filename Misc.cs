@@ -61,7 +61,16 @@ public static class Misc {
             return DtoToUrlQuery(o);
 
         return AnonymousToUrlQuery(o);
+    }
 
+    public static Dictionary<string, string> AnonymousToStringDictionary(object obj) {
+        return HtmlHelper.AnonymousObjectToHtmlAttributes(obj)
+            .Select(pair => new KeyValuePair<string, string>(
+                key: pair.Key,
+                value: pair.Value.ToString()!
+            ))
+            .Where(pair => !string.IsNullOrEmpty(pair.Value))
+            .ToDictionary();
     }
 
     public static string AnonymousToUrlQuery(object o) {
