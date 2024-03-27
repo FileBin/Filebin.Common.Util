@@ -15,7 +15,8 @@ public static class Misc {
     public static readonly int MaxQuery = 1024;
 
 
-    public static string GetOrThrow(this IConfiguration config, string key) {
+    public static string GetOrThrow<TConfiguration>(this TConfiguration config, string key)
+    where TConfiguration : IConfiguration {
         var val = config[key];
         if (val is null) {
             throw new ArgumentException($"Config does not contain {key}");
